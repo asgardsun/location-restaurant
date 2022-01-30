@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board.mapper.FreeBoardMapper">
+<insert id="insertBoard" parameterType="board.model.FreeBoardVO">
+insert into freeboard
+	(user_id,free_title,free_content)
+	values (#{userid},#{title},#{content}) 
+		<selectKey order="AFTER" keyProperty="num" resultType="int">
+			select LAST_INSERT_ID()
+		</selectKey>
+</insert>
+
+<select id="selectAll" resultMap="freeboardMap">
+select * from freeboard order by free_num desc
+</select>
+<update id="updateReadCount" parameterType="board.model.FreeBoardVO">
+update freeboard
+	set free_readcnt = free_readcnt +1
+		where free_num = #{num}
+		
+</update>
+
+<update id="updateBoard" parameterType="board.model.FreeBoardVO">
+update freeboard
+	set free_title= #{title},
+		free_content = #{content}
+		where free_num = #{num} 
+</update>
+
+<delete id="deleteBoard" parameterType="int">
+delete from freeboard where free_num = #{num}
+</delete>
+
+<select id="selectOne_id" parameterType="String" resultMap="freeboardMap">
+select * from freeboard where user_id = #{userid}
+</select>
+<select id="selectRecentFree" resultMap="freeboardMap">
+		SELECT * 
+		  FROM ( SELECT * FROM freeboard order by free_regdate desc)
+	  	 WHERE rownum between 1 and 5
+</select>
+<select id="selectOne" parameterType="int" resultMap="freeboardMap">
+select free_num ,user_id,free_title,free_content,free_regdate, free_updatedate,free_readcnt,
+	(select count(*)from free_like where free_num = #{num} and free_like_status = 1)free_recomm_cnt
+from freeboard where free_num = #{num}
+
+</select>
+
+<sql id="criteriaDTO">
+ 	<trim prefix="where (" suffix=")" prefixOverrides="OR"> 
+  		<foreach item="type" collection="typeArr">
+  			<trim prefix="OR">
+  				<choose>
+  					<when test="type == 'T'.toString()">
+  						free_title like concat('%',#{keyword},'%')
+  					</when>
+  					<when test="type == 'C'.toString()">
+  						free_content like concat('%',#{keyword},'%')
+  					</when>
+  					<when test="type == 'W'.toString()">
+  						user_id like concat('%',#{keyword},'%')
+  					</when>
+  				</choose>
+  			</trim>
+  		</foreach>
+  	</trim>
+</sql>
+
+<select id="getListWithPaging" parameterType="board.model.FreeBoardVO" resultMap="freeboardMap">
+   SELECT 
+    free_num ,user_id,free_title,free_content,free_regdate, free_updatedate,free_readcnt,
+  	(SELECT COUNT(*) FROM freeboard_reply WHERE free_num = a.free_num) free_reply_cnt
+  	
+  FROM( 
+  	SELECT free_num, user_id, free_title, free_content, free_regdate, free_updatedate, free_readcnt
+	FROM freeboard
+        ORDER BY free_num DESC) a
+   <include refid="criteriaDTO"></include>
+ 	LIMIT #{pageStart},#{amount} 
+</select>
+
+<select id="getTotalCount" resultType="int">
+		select count(*) from freeboard
+
+</select>
+
+<resultMap id="freeboardMap" type="board.model.FreeBoardVO">
+<result column="free_num" property="num"/>
+<result column="user_id" property="userid"/>
+<result column="free_title" property="title"/>
+<result column="free_content" property="content"/>
+<result column="free_regdate" property="regDate"/>
+<result column="free_updatedate" property="upDateDate"/>
+<result column="free_readcnt" property="readCount"/>
+<result column="free_recomm_cnt" property="recommCount"/>
+<result column="free_disrecomm_cnt" property="disrecommCount"/>
+<result column="free_reply_cnt" property="replyCount"/>
+<result column="BLOCK" property="block"/>
+</resultMap>
+</mapper>

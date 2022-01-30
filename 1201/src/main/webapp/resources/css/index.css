@@ -1,0 +1,162 @@
+/* ��ü ������ ��Ʋ� ��Ÿ�� ����*/
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+*{
+	font-family : 'Nanum Gothic';
+}
+a{
+	color: #000000;
+	text-decoration:none;
+}
+a:hover{
+	color: #bbbbbb;
+	text-decoration:none;
+	cusor:pointer;
+}
+
+/* �׺���̼� ����*/
+.navbar-default{	/*��� ���� */
+	background-color : #000000;
+	border-color : #000000;
+}
+.navbar-default .navbar-brand{
+	color : #ffffff;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:hover.focus{	/* �׺���̼� ���� ���콺�� �÷��� �� */
+	background-color : transparent;
+	color : #ffffff;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus{ /* ���� ���õ� �׺���̼� ���� �̺�Ʈ*/
+	color : white;
+	background-color : #000000;
+} 
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus{ /* �׺���̼��� ���ڿ� ���콺�� �÷��� ��*/
+	color : #bbbbbb;
+} 
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus{ /* ����ٿ��� ������ �� ���콺 ���� �̺�Ʈ*/
+	color : #000000;
+	background-color : #ffffff;
+	text-decoration : none;
+} 
+
+.navbar-default .navbar-nav > li > a{ /* �׺���̼� �⺻ ����*/
+	
+	color : white;
+}
+
+@media (max-width : 767px){ /* �ػ󵵰� ���� �� �ٸ��ٿ� �����ۿ� ���콺�� �÷��� ��*/
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+	color : #ffffff;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus{
+	color : #bbbbbb;
+	}
+}
+input:-ms-input-placeholder{
+	color : #a8a8a8;
+}
+input::webkit-input-placeholder{
+	color : #a8a8a8;
+}
+input::-moz-placeholder{
+	color : #a8a8a8;
+}
+.search{
+	height : 50px;
+	width : 400px;
+	border : 2px solid #556b2f ;
+	background : #ffffff;
+	margin:0 auto;
+}
+
+input{
+	font-size : 16px;
+	width : 325px;
+	padding : 10px;
+	border : 0px;
+	outline : none;
+	float : left;
+}
+.button{
+	width : 60px;
+	height : 100%;
+	border : 0px;
+	background : #1b5ac2;
+	outline : none;
+	float : right;
+	color : #ffffff
+}
+/* ������ ���̵� ��
+input[id="menuicon"] {
+	display:none;
+}
+input[id="menuicon"] + ul {
+	display:block;position:fixed;right:0;top:50%;transform:translateY(-50%);transition:all .35s;text-align:right;}
+input[id="menuicon"] + ul > li {
+	display:block;width:50px;height:50px;border:1px solid #f1f1f1;position:relative;margin-top:-1px;}
+input[id="menuicon"] + ul > li > a {
+	display:block;width:auto;height:50px;overflow:hidden;transition:all .35s;}
+input[id="menuicon"] + ul > li > label {
+	display:block;cursor:pointer;width:auto;height:50px;background:#dadada;}
+input[id="menuicon"] + ul > li:nth-child(1) label span {
+	display:block;position:absolute;width:50%;height:3px;border-radius:30px;background:#333;transition:all .35s;}
+input[id="menuicon"] + ul > li:nth-child(1) label span:nth-child(1) {
+	top:30%;left:50%;transform:translateX(-50%);}
+input[id="menuicon"] + ul > li:nth-child(1) label span:nth-child(2) {
+	top:50%;left:50%;transform:translate(-50%,-50%);}
+input[id="menuicon"] + ul > li:nth-child(1) label span:nth-child(3) {
+	bottom:30%;left:50%;transform:translateX(-50%);}
+input[id="menuicon"] + ul > li:nth-child(2) a .icon {
+	background:url('./img/search.png') center center no-repeat;
+	background-size:50%;
+	display:inline-block;
+	width:50px;height:50px;
+	vertical-align:middle;}
+input[id="menuicon"] + ul > li:nth-child(3) a .icon {
+	background:url('./img/sand-clock.png') center center no-repeat;
+	background-size:50%;
+	display:inline-block;
+	width:50px;
+	height:50px;
+	vertical-align:middle;}
+input[id="menuicon"]:checked + ul {
+	z-index:2;right:300px;}
+input[id="menuicon"]:checked + ul > li:nth-child(1) label {
+	z-index:2;
+	right:300px;
+}
+input[id="menuicon"]:checked + ul > li:nth-child(1) label span:nth-child(1) {
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%) rotate(45deg);
+}
+input[id="menuicon"]:checked + ul > li:nth-child(1) label span:nth-child(2) {
+	opacity:0;
+}
+input[id="menuicon"]:checked + ul > li:nth-child(1) label span:nth-child(3) {
+	bottom:50%;
+	left:50%;
+	transform:translate(-50%,50%) rotate(-45deg);
+}
+div[class="sidebar"] {
+	width:300px;
+	height:100%;
+	background:#f5f5f5;
+	position:fixed;
+	top:0;
+	right:-300px;
+	z-index:1;
+	transition:all .35s;}
+input[id="menuicon"]:checked + ul + div {
+	right:0;
+}
+*/
+

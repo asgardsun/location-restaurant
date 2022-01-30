@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ <mapper namespace="board.mapper.FreeReplyMapper"> 
+ <insert id="insertReply" parameterType="board.model.FreeReplyVO"> 
+ insert into freeboard_reply 
+		(free_num,user_id,reply_content)
+ 	values(#{fboardNum},#{userid},#{content})
+ 		<selectKey order="AFTER" keyProperty="num" resultType="int">
+			select LAST_INSERT_ID()
+		</selectKey>
+ </insert> 
+
+ <update id="updateReply" parameterType="board.model.FreeReplyVO"> 
+update freeboard_reply 
+	set reply_content = #{content} 
+ 		where free_reply_num = #{num}  
+ </update> 
+
+ <delete id="deleteReply" parameterType="int"> 
+	delete from freeboard_reply where free_reply_num = #{num} 
+ </delete
+ > 
+ <!-- 4 -->
+ <select id="selectOne" parameterType="int" resultMap="replyMap"> 
+select * from freeboard_reply where free_reply_num = #{num}	
+ </select> 
+
+<select id="selectListByBnum" resultMap="replyMap"> 
+<!--  select * from free_reply where free_num = #{fboardNum}  -->
+	 select * from freeboard_reply 
+        where free_num = #{fboardNum}
+            order by free_reply_num desc
+ </select> 
+  
+ <select id="selectAll" resultMap="replyMap"> 
+ 	select * from freeboard_reply 
+ </select> 
+
+<sql id="pagingHeader">
+select *
+	from (
+		select @rownum:=@rownum+1 as rn, A.* from(
+</sql>		
+<sql id="pagingFooter">
+	) A
+)B
+	where rn between #{start} and #{end}	
+</sql> 
+
+<select id="getListWithPaging" resultMap="replyMap">
+SELECT free_reply_num, free_num, user_id, reply_content, reply_regdate, reply_updatedate
+	FROM (SELECT free_reply_num, free_num, user_id, reply_content, reply_regdate, reply_updatedate 
+	FROM freeboard_reply
+	WHERE free_num = #{fboardNum} 
+	ORDER BY free_reply_num)a
+LIMIT #{start}, #{end} 
+</select>
+
+
+<select id="getTotalCountByBNum" resultType="int">
+	select count(*) from freeboard_reply
+	where free_num = #{fboardNum}
+</select>
+<select id="replyUserIdCheck" resultType="String">
+	select user_id
+		from freeboard_reply
+			where free_reply_num = {num}
+</select>
+<!-- 댓글 총 개수 -->
+<select id="getReplyCnt" resultType="int">
+		SELECT count(*)
+		FROM freeboard_reply WHERE free_num = #{fboardNum}
+</select>
+
+ <resultMap id="replyMap" type="board.model.FreeReplyVO"> 
+ <result column="free_reply_num" property="num"/> 
+ <result column="free_num" property="fboardNum"/> 
+ <result column="user_id" property="userid"/> 
+ <result column="reply_content" property="content"/> 
+ <result column="reply_regdate" property="regDate"/> 
+ <result column="reply_updatedate" property="upDateDate"/> 
+ </resultMap> 
+ 
+</mapper> 
